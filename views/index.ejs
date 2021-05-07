@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>History Photo Map</title>
+    <meta name="description" content="Our first page">
+    <meta name="keywords" content="html tutorial template">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <script src="https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.js"></script>
+    <link rel="stylesheet" href="https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.css">
+
+  </head>
+  <body>
+    <h1>Image Upload</h1>
+    <main class="container">
+      <div>
+          <a href="/login"> Login</a>
+          <a href="/signup"> Signup</a>
+          <a href="/logout"> Logout</a>
+      </div>
+      <div id="homemap" style="height: 500px;"></div>
+    </main>
+
+  <script src="js/leaflet.js"></script>
+  <script>
+    var markers = {
+        "type": "FeatureCollection",
+        "features": [
+        <% for(var i=0; i<posts.length; i++) {%>
+            {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [<%= posts[i].lng %>,<%=posts[i].lat%>]
+                },
+                "properties": {
+                    "popupContent": "<img src=/img/<%= posts[i].image%> width='100'>"
+                }
+            },
+        <% } %>
+        ]
+    };
+    function onEachFeature(feature, layer) {
+        // does this feature have a property named popupContent?
+        if (feature.properties && feature.properties.popupContent) {
+            layer.bindPopup(feature.properties.popupContent);
+        }
+    }
+    L.geoJSON(markers, {
+        onEachFeature: onEachFeature
+    }).addTo(map);
+  </script>
+  </body>
+</html>

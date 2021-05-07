@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Image Upload Profile</title>
+    <meta name="description" content="Our first page">
+    <meta name="keywords" content="html tutorial template">
+  </head>
+  <body>
+    <h1>Image Upload Profile</h1>
+    <p><strong>User Name</strong>: <%= user.userName %></p>
+    <p><strong>Email</strong>: <%= user.email %></p>
+
+    <h3>New Post</h3>
+    <form action="post/createPost" enctype="multipart/form-data" method="POST">
+    Title: <input type="text" name="title"><br>
+    Caption: <input type="text" name="caption"><br>
+    Lat: <input type="text" name="lat"><br>
+    Lng: <input type="text" name="lng"><br>
+    Image: <input type="file" name="image"><br>
+    <button type="submit">Submit</button>
+    </form>
+
+    <h3>My Posts</h3>
+    <ul>
+      <% for(var i=0; i<posts.length; i++) {%>
+        <li data-id='<%=posts[i]._id%>'>
+          <a href="/post/<%= posts[i]._id%>">
+            <img src=/img/<%= posts[i].image%> width="200">
+          </a>
+          <span class='del'> Delete </span>
+        </li>
+      <% } %>
+    </ul>
+    <script src='js/main.js'></script>
+  </body>
+</html>

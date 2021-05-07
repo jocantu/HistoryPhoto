@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Image Upload</title>
+    <meta name="description" content="Our first page">
+    <meta name="keywords" content="html tutorial template">
+  </head>
+  <body>
+    <h1>Image Upload SignUp</h1>
+    <% if (locals.messages.errors) { %>
+        <% messages.errors.forEach( el => { %>
+            <div class="alert alert-danger"><%= el.msg %></div>
+        <% }) %>    
+    <% } %>
+    <% if (locals.messages.info) { %>
+        <% messages.info.forEach( el => { %>
+            <div class="alert alert-info"><%= el.msg %></div>
+        <% }) %>    
+    <% } %>
+    <form action="/signup" method="POST">
+        <input type="text" name="userName" placeholder="User Name"><br>
+        <input type="email" name="email" placeholder="email@example.com"><br>
+        <input type="password" name="password"><br>
+        <input type="password" name="confirmPassword"><br>
+        <button type="submit">Submit</button>
+      </form>
+  </body>
+</html>
